@@ -32,8 +32,10 @@ const Styled = {
     width: 100%;
     padding: 6px 3px 6px 3px;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #eee;
     outline: none;
+    background-color: transparent;
+    color: white;
   `,
   Prefix: styled.div``,
   Suffix: styled.div``,
