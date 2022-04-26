@@ -24,14 +24,16 @@ export default Input;
 const Styled = {
   Label: styled.label`
     display: flex;
-    min-width: 120px;
-    max-width: 360px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   `,
   Input: styled.input`
-    width: 90%;
+    width: 100%;
     padding: 6px 3px 6px 3px;
     border: none;
     border-bottom: 1px solid black;
+    outline: none;
   `,
   Prefix: styled.div``,
   Suffix: styled.div``,

@@ -21,9 +21,13 @@ const Login: React.FC<LoginProps> = ({
 }) => {
   return (
     <Styled.Form {...props}>
-      <Input value={userId} onChange={onChangeUserId} />
+      <Input placeholder="ID" value={userId} onChange={onChangeUserId} />
       <div className="margin--top--20" />
-      <Input value={userPassword} onChange={onChangeUserPassword} />
+      <Input
+        placeholder="Password"
+        value={userPassword}
+        onChange={onChangeUserPassword}
+      />
     </Styled.Form>
   );
 };
