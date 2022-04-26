@@ -6,7 +6,11 @@ type LayoutProps = {
 };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  return <Container>{children}</Container>;
+  return (
+    <React.Fragment>
+      <Container>{children}</Container>
+    </React.Fragment>
+  );
 };
 
 export default Layout;
