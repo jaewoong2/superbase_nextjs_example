@@ -6,14 +6,17 @@ type ButtonProps = {} & React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-const Button: React.FC<ButtonProps> = ({}) => {
-  return <Styled.Button>Button</Styled.Button>;
+const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+  return <Styled.Button {...props}>{children}</Styled.Button>;
 };
 
 const Styled = {
   Button: styled.button`
     width: 100%;
     height: 100%;
+    border: none;
+    outline: none;
+    background-color: ${({ theme }) => theme.color.buttonBgNoraml};
   `,
 };
 
