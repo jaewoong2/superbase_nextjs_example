@@ -4,7 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { supabase } from "lib/supabase";
 import { Button, Form } from "@components/index";
 import styled from "@emotion/styled";
-import { supaLogin } from "utils/supaSignup";
+import { supaSignup } from "utils/supaSignup";
 import { UserContext } from "context/user";
 import { useRouter } from "next/router";
 
@@ -12,17 +12,15 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const { user, setUser, setSession, isLogin, setIsLogin } =
-    useContext(UserContext);
+  const { setUser, isLogin, setIsLogin } = useContext(UserContext);
   const { email, password, onChangeEmail, onChangePassword } = useForm({
     email: "",
     password: "",
   });
 
   useEffect(() => {
-    console.log(isLogin);
     if (isLogin) {
-      router.push("/login");
+      router.push("/logout");
     }
   }, [isLogin, router]);
 
@@ -31,7 +29,7 @@ const Home: NextPage = () => {
       e.preventDefault();
       if (loading) return;
       setLoading(true);
-      const { user, session } = await supaLogin({ email, password });
+      const { user, session } = await supaSignup({ email, password });
       console.log(user, session);
       setLoading(false);
       if (user) {

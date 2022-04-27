@@ -1,64 +1,40 @@
 import type { NextPage } from "next";
-import useForm from "hooks/useForm";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { supabase } from "lib/supabase";
-import { Button, Form } from "@components/index";
+import { Button } from "@components/index";
 import styled from "@emotion/styled";
-import { supaLogin } from "utils/supaSignup";
 import { UserContext } from "context/user";
 import { useRouter } from "next/router";
 
 const Logout: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  const { user, setUser, setSession, isLogin, setIsLogin } =
-    useContext(UserContext);
-  const { email, password, onChangeEmail, onChangePassword } = useForm({
-    email: "",
-    password: "",
-  });
+  const { isLogin, setIsLogin } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(isLogin);
-    if (isLogin) {
+    if (!isLogin) {
       router.push("/login");
     }
   }, [isLogin, router]);
 
-  const onSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (loading) return;
-      setLoading(true);
-      const { user, session } = await supaLogin({ email, password });
-      console.log(user, session);
-      setLoading(false);
-      if (user) {
-        setUser(user);
-        setIsLogin(true);
-      }
-    },
-    [email, password, loading, setUser, setIsLogin]
-  );
+  const onClickButton = useCallback(async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      setIsLogin(false);
+    }
+  }, [setIsLogin]);
 
   return (
     <FormWrapper>
-      <Form
-        isLoading={loading}
-        onSubmit={onSubmit}
-        userEmail={email}
-        userPassword={password}
-        onChangeUserEmail={onChangeEmail}
-        onChangeUserPassword={onChangePassword}
-        title="회원가입"
-      >
-        <ButtonWrapper>
-          <Button isLoading={loading} buttonType="primary">
-            회원가입
-          </Button>
-        </ButtonWrapper>
-      </Form>
+      <ButtonWrapper>
+        <Button
+          onClick={onClickButton}
+          isLoading={loading}
+          buttonType="primary"
+        >
+          Logout
+        </Button>
+      </ButtonWrapper>
     </FormWrapper>
   );
 };

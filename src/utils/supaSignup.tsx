@@ -1,6 +1,6 @@
 import { supabase } from "lib/supabase";
 
-export const supaLogin = async ({
+export const supaSignup = async ({
   email,
   password,
 }: {
