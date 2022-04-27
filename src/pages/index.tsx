@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import Form from "@components/BasicForm";
 import useForm from "hooks/useForm";
 import React, { useCallback } from "react";
 import { supabase } from "lib/supabase";
+import { Form } from "@components/index";
 
 const Home: NextPage = () => {
   const { email, password, onChangeEmail, onChangePassword } = useForm({
