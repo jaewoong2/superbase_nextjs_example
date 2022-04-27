@@ -3,14 +3,19 @@ import styled from "@emotion/styled";
 import React, { HtmlHTMLAttributes } from "react";
 
 type ButtonProps = {
+  isLoading?: boolean;
   buttonType?: "normal" | "primary" | "error" | "not-allowed";
 } & React.DetailedHTMLProps<
   HtmlHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
 
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-  return <Styled.Button {...props}>{children}</Styled.Button>;
+const Button: React.FC<ButtonProps> = ({ isLoading, children, ...props }) => {
+  return (
+    <Styled.Button disabled={isLoading} {...props}>
+      {children}
+    </Styled.Button>
+  );
 };
 
 const getBgColor = (theme: Theme, type: ButtonProps["buttonType"]) => {
@@ -38,8 +43,14 @@ const Styled = {
     border-radius: 25px;
     border: none;
     outline: none;
+    cursor: pointer;
     background-color: ${({ theme, buttonType }) =>
       getBgColor(theme, buttonType)};
+
+    &:disabled {
+      background-color: #db7070;
+      cursor: not-allowed;
+    }
   `,
 };
 

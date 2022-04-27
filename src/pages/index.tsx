@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import useForm from "hooks/useForm";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { supabase } from "lib/supabase";
 import { Button, Form } from "@components/index";
 import styled from "@emotion/styled";
+import { supaLogin } from "utils/supaLogin";
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState(false);
   const { email, password, onChangeEmail, onChangePassword } = useForm({
     email: "",
     password: "",
@@ -14,19 +16,10 @@ const Home: NextPage = () => {
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      try {
-        if (email.trim() === "" || password.trim() === "") {
-          return;
-        }
-
-        const { error, user, session } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-        if (error) {
-        } else {
-        }
-      } catch (err) {}
+      if (loading) return;
+      setLoading(true);
+      const { user, session, error } = await supaLogin({ email, password });
+      setLoading(false);
     },
     [email, password]
   );
@@ -34,6 +27,7 @@ const Home: NextPage = () => {
   return (
     <FormWrapper>
       <Form
+        isLoading={loading}
         onSubmit={onSubmit}
         userEmail={email}
         userPassword={password}
@@ -42,7 +36,9 @@ const Home: NextPage = () => {
         title="회원가입"
       >
         <ButtonWrapper>
-          <Button buttonType="primary">회원가입</Button>
+          <Button isLoading={loading} buttonType="primary">
+            회원가입
+          </Button>
         </ButtonWrapper>
       </Form>
     </FormWrapper>

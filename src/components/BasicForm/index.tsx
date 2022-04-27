@@ -8,6 +8,7 @@ type LoginProps = {
   userPassword?: string;
   userEmailPlaceHolder?: string;
   userPasswordPlaceHolder?: string;
+  isLoading?: boolean;
   onChangeUserEmail?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeUserPassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.DetailedHTMLProps<

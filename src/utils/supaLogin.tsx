@@ -1,6 +1,6 @@
 import { supabase } from "lib/supabase";
 
-export const useSupaLogin = async ({
+export const supaLogin = async ({
   email,
   password,
 }: {
@@ -9,7 +9,7 @@ export const useSupaLogin = async ({
 }) => {
   try {
     if (email.trim() === "" || password.trim() === "") {
-      return;
+      return { error: "blank issue", user: null, session: null };
     }
     const { error, user, session } = await supabase.auth.signUp({
       email,
