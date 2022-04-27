@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       const { user, session, error } = await supaLogin({ email, password });
       setLoading(false);
     },
-    [email, password]
+    [email, password, loading]
   );
 
   return (
