@@ -40,8 +40,7 @@ const Styled = {
     font-size: 16px;
     &:active,
     &:focus {
-      box-shadow: 1px 1px 4px ${({ theme }) => theme.color.buttonBgNoraml},
-        -1px -1px 4px ${({ theme }) => theme.color.buttonBgNoraml};
+      box-shadow: 1px 1px 4px #ffc4815c -1px -1px 4px #ffc4815c;
       transition: box-shadow 0.4s;
     }
   `,

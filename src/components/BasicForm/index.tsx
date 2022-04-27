@@ -63,6 +63,7 @@ const Styled = {
     align-items: center;
     flex-direction: column;
     background-color: ${({ theme }) => theme.color.formBgNormal};
+    box-shadow: 1px 1px 5px #4f4f4f97, -1px 0px 5px #4f4f4f97;
     border-radius: 12px;
     h3 {
       font-size: 32px;

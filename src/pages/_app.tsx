@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import { Layout } from "@components/index";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "@styles/theme";
+import { UserProvider } from "context/user";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,11 +14,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </UserProvider>
     </React.Fragment>
   );
 }
