@@ -8,7 +8,7 @@ import { supaLogin } from "utils/supaSignup";
 import { UserContext } from "context/user";
 import { useRouter } from "next/router";
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Login;
 
 const ButtonWrapper = styled.div`
   width: 75%;

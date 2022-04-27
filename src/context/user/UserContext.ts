@@ -5,8 +5,10 @@ import { createContext } from "react";
 export interface UserContextInterface {
     user: User;
     session: Session;
+    isLogin: boolean;
     setUser: (user: User) => void;
     setSession: (session: Session) => void;
+    setIsLogin: (bool: boolean) => void;
 }
 
 export const initalState: UserContextInterface = {
@@ -28,8 +30,10 @@ export const initalState: UserContextInterface = {
         token_type: '',
         user: null,
     } || null,
+    isLogin: false,
     setUser: () => { },
     setSession: () => { },
+    setIsLogin: () => { },
 }
 
 
