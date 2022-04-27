@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export { Layout };
 
 const Container = styled.div`
   width: 100%;

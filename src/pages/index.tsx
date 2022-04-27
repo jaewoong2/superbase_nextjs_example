@@ -19,14 +19,9 @@ const Home: NextPage = () => {
           password,
         });
         if (error) {
-          console.log(error);
         } else {
-          console.log("user", user);
-          console.log("session", session);
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     },
     [email, password]
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Input from "@components/Input";
+import { Input } from "@components/index";
 
 type LoginProps = {
   title: string;
@@ -49,7 +49,7 @@ const Form: React.FC<LoginProps> = ({
   );
 };
 
-export default Form;
+export { Form };
 
 const Styled = {
   Container: styled.div`

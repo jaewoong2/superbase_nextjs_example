@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({ prefix, suffix, ...props }) => {
   );
 };
 
-export default Input;
+export { Input };
 
 const Styled = {
   Label: styled.label`
