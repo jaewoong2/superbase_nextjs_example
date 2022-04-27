@@ -12,9 +12,9 @@ type InputProps = {
 const Input: React.FC<InputProps> = ({ prefix, suffix, ...props }) => {
   return (
     <Styled.Label>
-      <Styled.Prefix>{prefix}</Styled.Prefix>
+      {prefix && <Styled.Prefix>{prefix}</Styled.Prefix>}
       <Styled.Input {...props} />
-      <Styled.Suffix>{suffix}</Styled.Suffix>
+      {suffix && <Styled.Suffix>{suffix}</Styled.Suffix>}
     </Styled.Label>
   );
 };
@@ -26,16 +26,24 @@ const Styled = {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 75%;
   `,
   Input: styled.input`
     width: 100%;
-    padding: 6px 3px 6px 3px;
-    border: none;
-    border-bottom: 1px solid #eee;
+    height: 50px;
+    padding-left: 20px;
     outline: none;
-    background-color: transparent;
-    color: white;
+    border: none;
+    border-radius: 25px;
+    background-color: ${({ theme }) => theme.color.inputBgNormal};
+    transition: box-shadow 0.4s;
+    font-size: 16px;
+    &:active,
+    &:focus {
+      box-shadow: 1px 1px 4px ${({ theme }) => theme.color.buttonBgNoraml},
+        -1px -1px 4px ${({ theme }) => theme.color.buttonBgNoraml};
+      transition: box-shadow 0.4s;
+    }
   `,
   Prefix: styled.div``,
   Suffix: styled.div``,

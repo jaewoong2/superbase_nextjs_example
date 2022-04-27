@@ -3,6 +3,7 @@ import useForm from "hooks/useForm";
 import React, { useCallback } from "react";
 import { supabase } from "lib/supabase";
 import { Button, Form } from "@components/index";
+import styled from "@emotion/styled";
 
 const Home: NextPage = () => {
   const { email, password, onChangeEmail, onChangePassword } = useForm({
@@ -31,21 +32,32 @@ const Home: NextPage = () => {
   );
 
   return (
-    <div>
+    <FormWrapper>
       <Form
         onSubmit={onSubmit}
         userEmail={email}
         userPassword={password}
         onChangeUserEmail={onChangeEmail}
         onChangeUserPassword={onChangePassword}
-        userEmailPlaceHolder="아이디"
-        userPasswordPlaceHolder="비밀번호"
-        title="SignUp"
+        title="회원가입"
       >
-        <Button>Signup</Button>
+        <ButtonWrapper>
+          <Button buttonType="primary">회원가입</Button>
+        </ButtonWrapper>
       </Form>
-    </div>
+    </FormWrapper>
   );
 };
 
 export default Home;
+
+const ButtonWrapper = styled.div`
+  width: 75%;
+  height: 50px;
+  margin-top: 100px;
+`;
+
+const FormWrapper = styled.div`
+  width: 420px;
+  height: 480px;
+`;
