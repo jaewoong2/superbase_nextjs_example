@@ -1,68 +1,97 @@
 import type { NextPage } from "next";
-import useForm from "hooks/useForm";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { supabase } from "lib/supabase";
-import { Button, Form } from "@components/index";
+import React from "react";
 import styled from "@emotion/styled";
-import { supaLogin } from "utils/supaLogin";
-import { UserContext } from "context/user";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { FormikProvider, useFormik } from "formik";
+import { Button, Flex, Box, Stack, VStack, Checkbox } from "@chakra-ui/react";
+import Input from "@components/Chark/Input";
 
 const Login: NextPage = () => {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const { setUser, isLogin, setIsLogin } = useContext(UserContext);
-  const { email, password, onChangeEmail, onChangePassword } = useForm({
-    email: "",
-    password: "",
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
   });
 
-  useEffect(() => {
-    if (isLogin) {
-      router.push("/logout");
-    }
-  }, [isLogin, router]);
-
-  const onSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (loading) return;
-      setLoading(true);
-      const { user, session } = await supaLogin({ email, password });
-      console.log(user, session);
-      setLoading(false);
-      if (user) {
-        setUser(user);
-        setIsLogin(true);
-      }
-    },
-    [email, password, loading, setUser, setIsLogin]
-  );
+  // <Box p /> p 는 padding
 
   return (
-    <FormWrapper>
-      <Form
-        isLoading={loading}
-        onSubmit={onSubmit}
-        userEmail={email}
-        userPassword={password}
-        onChangeUserEmail={onChangeEmail}
-        onChangeUserPassword={onChangePassword}
-        title="로그인"
-      >
-        <ButtonWrapper>
-          <Button isLoading={loading} buttonType="primary">
-            로그인
-          </Button>
-          <div className="margin--right-10px" />
-          <LinkWrapper>
-            <Link href={"/"}>회원가입</Link>
-          </LinkWrapper>
-        </ButtonWrapper>
-      </Form>
-    </FormWrapper>
+    <FormikProvider value={formik}>
+      <FormWrapper>
+        <Flex
+          bg="gray.100"
+          align="center"
+          justify="center"
+          width="100%"
+          height="100%"
+        >
+          <Box
+            bg="white"
+            width="100%"
+            maxWidth={"400px"}
+            p={10}
+            rounded="9px 9px 99px 1px"
+          >
+            <form onSubmit={formik.handleSubmit}>
+              <VStack>
+                <Input
+                  value={formik.values.email}
+                  htmlfor="email"
+                  id="email"
+                  key="email"
+                  label="Email Address"
+                  name="email"
+                  onChange={formik.handleChange}
+                  type="email"
+                  variant="filled"
+                  validate={(value) => {
+                    if (value.trim() === "") {
+                      return "띄어쓰기는 제거 해주세요.";
+                    }
+                  }}
+                />
+                <Input
+                  isInvalid={false}
+                  value={formik.values.password}
+                  htmlfor="password"
+                  id="password"
+                  key="password"
+                  label="password"
+                  name="password"
+                  onChange={formik.handleChange}
+                  type="password"
+                  variant="filled"
+                  validate={(value) => {
+                    let error;
+                    if (value.length < 5) {
+                      error = "Password must contain at least 6 characters";
+                    }
+                    return error;
+                  }}
+                />
+                <Checkbox
+                  width={"100%"}
+                  id="rememberMe"
+                  name="rememberMe"
+                  onChange={formik.handleCgithange}
+                  isChecked={formik.values.rememberMe}
+                  colorScheme="purple"
+                >
+                  Remember me?
+                </Checkbox>
+                <Button type="submit" colorScheme="purple" isFullWidth>
+                  Login
+                </Button>
+              </VStack>
+            </form>
+          </Box>
+        </Flex>
+      </FormWrapper>
+    </FormikProvider>
   );
 };
 
@@ -98,6 +127,6 @@ const LinkWrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  width: 420px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
 `;

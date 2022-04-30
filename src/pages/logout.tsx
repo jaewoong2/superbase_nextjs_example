@@ -7,7 +7,6 @@ import { UserContext } from "context/user";
 import { useRouter } from "next/router";
 
 const Logout: NextPage = () => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { isLogin, setIsLogin } = useContext(UserContext);
 
@@ -27,11 +26,7 @@ const Logout: NextPage = () => {
   return (
     <FormWrapper>
       <ButtonWrapper>
-        <Button
-          onClick={onClickButton}
-          isLoading={loading}
-          buttonType="primary"
-        >
+        <Button onClick={onClickButton} isLoading={false} buttonType="primary">
           Logout
         </Button>
       </ButtonWrapper>
@@ -44,10 +39,12 @@ export default Logout;
 const ButtonWrapper = styled.div`
   width: 75%;
   height: 50px;
-  margin-top: 100px;
 `;
 
 const FormWrapper = styled.div`
   width: 420px;
   height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
